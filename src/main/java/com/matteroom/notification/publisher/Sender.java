@@ -11,10 +11,13 @@ import java.util.Date;
 public class Sender {
     @Autowired
     private AmqpTemplate amqpTemplate;
+
     public void send() {
-        String context = "hello " + new Date();
-        System.out.println("Sender : " + context);
-        this.amqpTemplate.convertAndSend("hello", context);
-        System.out.println("000000000000");
+        for (int i = 0; i < 10; i++) {
+            String context = "hello" + i + " :" + new Date();
+            System.out.println("Sender" + i + ": " + context);
+            this.amqpTemplate.convertAndSend("notification", context);
+        }
+
     }
 }
